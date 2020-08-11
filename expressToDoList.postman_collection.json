@@ -1,0 +1,140 @@
+{
+	"info": {
+		"_postman_id": "ea8e6f31-36a1-4c0c-8bcb-74fb6cbdf5bd",
+		"name": "expressToDoList",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "新增",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3999/addpost2?title=777&body=7777",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3999",
+					"path": [
+						"addpost2"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "777"
+						},
+						{
+							"key": "body",
+							"value": "7777"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "内容查询",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3999/getposts?pageNo=0&pageSize=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3999",
+					"path": [
+						"getposts"
+					],
+					"query": [
+						{
+							"key": "pageNo",
+							"value": "0"
+						},
+						{
+							"key": "pageSize",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "单条查询",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3999/getposts/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3999",
+					"path": [
+						"getposts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "修改",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3999/updatepost?title=11111&body=999&id=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3999",
+					"path": [
+						"updatepost"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "11111"
+						},
+						{
+							"key": "body",
+							"value": "999"
+						},
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "删除",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3999/getposts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3999",
+					"path": [
+						"getposts"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

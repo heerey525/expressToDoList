@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新增页面</title>
+</head>
+<body>
+    <table border="1" id="nowData">
+        <!-- <tr>
+            <th>编号</th>
+            <th>标题</th>
+            <th>内容</th>
+            <th colspan="2">操作</th>
+        </tr> -->
+    </table>
+    <h5>新增数据</h5>
+    <form action="http://localhost:3999/addpost2" method="get" target="iframe_display">
+        标题：<input type="text" name="title"><br>
+        内容：<input type="text" name="body"><br>
+        <input type="submit" value="提交" onclick="updateData()">
+    </form>
+    <h5>更新数据</h5>
+    <form id="updateInfo" action="http://localhost:3999/updatepost" method="get" target="iframe_display">
+        <input type="text" name="id" style="display: none;">
+        标题：<input type="text" name="title"><br>
+        内容：<input type="text" name="body"><br>
+        <input type="submit" value="提交" onclick="updateData()">
+    </form>
+    <br>
+    <!-- 空iframe，用于协助处理form提交后不进行页面跳转的问题 -->
+    <iframe id="iframe_display" name="iframe_display" style="display: none;"></iframe>
+<script src="zepto.min.js"></script>
+<script>
+    getTableList()
+    function getTableList () {
+        $.get('http://localhost:3999/getposts', function (res, status) {
+            $('#nowData').html('');
+            $('#nowData').append(`
+                <tr>
+                    <th>序号</th>
+                    <th>标题</th>
+                    <th>内容</th>
+                    <th colspan="2">操作</th>
+                </tr>
+            `)
+            res.data.map(value => {
+                $('#nowData').append(`
+                    <tr>
+                        <td>${value.id}</td>
+                        <td>${value.title}</td>
+                        <td>${value.body}</td>
+                        <td><button class="delbtn" type="button" data-id="${value.id}">删除</button></td>
+                        <td><button class="updatebtn" type="button" data-id="${value.id}">修改</button></td>
+                    </tr>
+                `)
+            })
+        })
+    }
+    $(document).on('click', '.delbtn', function(){
+        let id = $(this)[0].dataset.id;
+        $.get(`http://localhost:3999/deletepost/${id}`, function (res, status) {
+            getTableList()
+        })
+    });
+    $(document).on('click', '.updatebtn', function(){
+        let id = $(this)[0].dataset.id;
+        $.get(`http://localhost:3999/getposts/${id}`, function (res, status) {
+            $("#updateInfo")[0][0].value = res.data[0].id
+            $("#updateInfo")[0][1].value = res.data[0].title
+            $("#updateInfo")[0][2].value = res.data[0].body
+        })
+    });
+    function updateData() {
+        setTimeout(() => {
+            getTableList()
+            $("#updateInfo")[0][0].value = ''
+            $("#updateInfo")[0][1].value = ''
+            $("#updateInfo")[0][2].value = ''
+        }, 100);
+    }
+
+    function func(event){
+        event.preventDefault();
+    }
+</script>
+</body>
+</html>
